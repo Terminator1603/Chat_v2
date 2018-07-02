@@ -6,14 +6,16 @@ public class MessageReceive extends Thread
     {
         reader = reader1;
     }
+
     public void run(){
         while(true){
-        try{
-          
-            Thread.sleep(100);
-            System.out.println(reader.readLine());
-        }catch(Exception e){
+            try{
+                String s  = reader.readLine();
+                if(s!=null){
+                    System.out.println(s);
+                }
+            }catch(Exception e){
+            }
         }
-    }
     }
 }
