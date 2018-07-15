@@ -24,7 +24,9 @@ public class Client {
             mr.start();
             do {
                 text = console.readLine();
-
+                try{
+                    checkFunc(text,socket);
+                }catch(Exception e){}
                 writer.println(text);
 
                 //String message = reader.readLine();
@@ -48,5 +50,25 @@ public class Client {
             id += (char)(int)(Math.random()*(91-65)+65);
         }
         return id;
+    }
+
+    static void checkFunc(String text, Socket s) throws Exception{
+        switch(text){
+            case "/c":{
+                System.out.print('\u000C');
+                System.out.println("Enter a number");
+                break;
+            }
+            case "/e":{
+                System.out.print('\u000C');
+                s.close();
+                System.exit(0);
+                break;
+            }
+            case "/wot":{
+                System.out.println("(ಠ_ಠ)");
+                break;
+            }
+        }
     }
 }
