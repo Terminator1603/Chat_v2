@@ -24,13 +24,10 @@ public class Client {
             mr.start();
             do {
                 text = console.readLine();
-                try{
-                    checkFunc(text,socket);
-                }catch(Exception e){}
-                writer.println(text);
-
-                //String message = reader.readLine();
-                //System.out.println(message);
+                //try{
+                    processText(text,socket,writer);
+                //}catch(Exception e){
+                //}
             } while (!text.equals("bye"));
 
             socket.close();
@@ -44,6 +41,7 @@ public class Client {
             System.out.println("I/O error: " + ex.getMessage());
         }
     }
+
     public static String idGenerator(int n){
         String id = "";
         for(int i =0;i<n;i++){
@@ -52,23 +50,21 @@ public class Client {
         return id;
     }
 
-    static void checkFunc(String text, Socket s) throws Exception{
-        switch(text){
-            case "/c":{
-                System.out.print('\u000C');
-                System.out.println("Enter a number");
-                break;
-            }
-            case "/e":{
-                System.out.print('\u000C');
-                s.close();
-                System.exit(0);
-                break;
-            }
-            case "/wot":{
-                System.out.println("(ಠ_ಠ)");
-                break;
-            }
+    static void processText(String text, Socket s,PrintWriter p) throws Exception{
+        if(text.equals("/c")){
+            System.out.print('\u000C');
+            System.out.println("Enter a number");
+        }else if(text.equals("/e")){
+            System.out.print('\u000C');
+            s.close();
+            System.exit(0);
+        }else if(text.length()>5&&(text.substring(0,5).equals("/open")||text.substring(0,5).equals("/join"))){
+            p.println(text);
+        }else if(text.equals("/wot")){
+            System.out.println("(ಠ_ಠ)");
+        }else{
+            p.println(text);
         }
     }
 }
+
