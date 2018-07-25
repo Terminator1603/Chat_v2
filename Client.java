@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.util.Scanner;
 public class Client {
 
     public static void main(String[] args) {
@@ -16,16 +17,16 @@ public class Client {
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
             writer.println(clientID);
-            Console console = System.console();
+            Scanner sc = new Scanner(System.in);
             String text;
             InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             MessageReceive mr = new MessageReceive(reader);
             mr.start();
             do {
-                text = console.readLine();
+                text = sc.nextLine();
                 //try{
-                    processText(text,socket,writer);
+                 processText(text,socket,writer);
                 //}catch(Exception e){
                 //}
             } while (!text.equals("bye"));

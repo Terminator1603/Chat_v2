@@ -25,7 +25,7 @@ public class ServerThread extends Thread {
             PrintWriter writer = new PrintWriter(output, true);
             String clientID = reader.readLine();
             System.out.println(clientID+" has connected");
-            ServerMessage sm = new ServerMessage(chats,num,reader,clientID);
+            ServerMessage sm = new ServerMessage(chats,num,reader,writer,clientID);
             sm.start();
             while(true){
                 if((num.lastval!=chats.get(num.i).value)&&(chats.get(num.i).text.length()!=0)&&(!clientID.equals(chats.get(num.i).lastUp))){
