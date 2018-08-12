@@ -10,7 +10,7 @@ public class Client {
         }else{
             clientID = args[0];
         }
-        String hostname = "localhost";
+        String hostname = hostloc();
         int port = 6868;
         try (Socket socket = new Socket(hostname, port)) {
             System.out.println(clientID);
@@ -26,7 +26,7 @@ public class Client {
             do {
                 text = sc.nextLine();
                 //try{
-                 processText(text,socket,writer);
+                processText(text,socket,writer);
                 //}catch(Exception e){
                 //}
             } while (!text.equals("bye"));
@@ -41,6 +41,27 @@ public class Client {
 
             System.out.println("I/O error: " + ex.getMessage());
         }
+    }
+
+    public static String hostloc(){
+        String hname = "192.168.14.";
+        for(int i =1;i<=100;i++){
+            hname+=i;
+            System.out.println(hname);
+            try {
+                Socket socket =null;
+                socket.connect(new InetSocketAddress(hname,6868),100);
+            }catch (UnknownHostException ex){
+                hname = "192.168.14.";
+                continue;
+            }catch(Exception ex) {
+                System.out.println("I/O error: " + ex.getMessage());
+                hname = "192.168.14.";
+                continue;
+            }
+            break;
+        }
+        return hname;
     }
 
     public static String idGenerator(int n){
