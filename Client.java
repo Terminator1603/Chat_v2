@@ -2,7 +2,9 @@ import java.net.*;
 import java.io.*;
 import java.util.Scanner;
 public class Client {
-
+    static String hostname = hostloc();
+    static int port = 6868;
+    static int timeout = 100;
     public static void main(String[] args) {
         String clientID;
         if(args.length==0){
@@ -10,8 +12,7 @@ public class Client {
         }else{
             clientID = args[0];
         }
-        String hostname = hostloc();
-        int port = 6868;
+
         try (Socket socket = new Socket(hostname, port)) {
             System.out.println(clientID);
             OutputStream output = socket.getOutputStream();
@@ -50,7 +51,7 @@ public class Client {
             System.out.println(hname);
             try {
                 Socket socket =null;
-                socket.connect(new InetSocketAddress(hname,6868),100);
+                socket.connect(new InetSocketAddress(hname,port),timeout);
             }catch (UnknownHostException ex){
                 hname = "192.168.14.";
                 continue;
@@ -59,6 +60,7 @@ public class Client {
                 hname = "192.168.14.";
                 continue;
             }
+            System.out.println("Host found");
             break;
         }
         return hname;
@@ -83,8 +85,13 @@ public class Client {
         }else if(text.length()>5&&(text.substring(0,5).equals("/open")||text.substring(0,5).equals("/join"))){
             p.println(text);
         }else if(text.equals("/wot")){
-            System.out.println("(ಠ_ಠ)");
-        }else{
+            p.println("(ಠ_ಠ)");
+        }else if(text.equals("/len")){
+            p.println("( ͡° ͜ʖ ͡°)");
+        }else if(text.equals("/dis")){
+            p.println("(╬ ಠ益ಠ)");
+        }
+        else{
             p.println(text);
         }
     }
